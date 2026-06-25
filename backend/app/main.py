@@ -22,11 +22,12 @@ from decimal import Decimal
 
 app = FastAPI(title="VaultStream Core Engine")
 
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+FRONTEND_URL_ENV = os.getenv("FRONTEND_URL", "http://localhost:5173")
+FRONTEND_URLS = [url.strip() for url in FRONTEND_URL_ENV.split(",") if url.strip()]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=FRONTEND_URLS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

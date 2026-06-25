@@ -276,7 +276,26 @@ async def get_user_profile(
         
     res = supabase.table("users").select("*").eq("id", str(user_id)).execute()
     if not res.data:
-        raise HTTPException(status_code=404, detail="User not found")
+        # If user hasn't made a transaction yet, they won't be in the users table.
+        # Return a default profile with 0 balance instead of 404.
+        try:
+            auth_user = supabase.auth.admin.get_user_by_id(str(user_id))
+            # Safe extraction of username
+            username = f"user_{str(user_id)[:8]}"
+            if hasattr(auth_user, 'user') and auth_user.user:
+                if hasattr(auth_user.user, 'user_metadata') and auth_user.user.user_metadata and 'username' in auth_user.user.user_metadata:
+                    username = auth_user.user.user_metadata['username']
+                elif hasattr(auth_user.user, 'email') and auth_user.user.email:
+                    username = auth_user.user.email.split('@')[0]
+        except Exception:
+            username = f"user_{str(user_id)[:8]}"
+            
+        return UserSummaryResponse(
+            id=user_id,
+            username=username,
+            balance=Decimal("0.00"),
+            tx_count=0
+        )
         
     return res.data[0]
 

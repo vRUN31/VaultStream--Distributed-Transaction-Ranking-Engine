@@ -1,0 +1,311 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  :root {
+    --bg-color: #ffffff;
+    --surface-color: #f4f4f5;
+    --text-color: #09090b;
+    --primary-color: #09090b;
+    --on-primary-color: #ffffff;
+    --text-variant-color: #52525b;
+    --grid-color: 0, 0, 0;
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(0, 0, 0, 0.03);
+    --glow-color: rgba(0, 0, 0, 0.1);
+    --text-gradient-start: #000000;
+    --text-gradient-end: #52525b;
+    --surface-container-lowest: #ffffff;
+    --surface-container: #e4e4e7;
+    --secondary-container-color: #00686f;
+    --error-color: #ba1a1a;
+    --glow-shadow-secondary: rgba(0, 104, 111, 0.4);
+  }
+
+  :root.dark {
+    --bg-color: #0a0a0a;
+    --surface-color: #0a0a0a;
+    --text-color: #ffffff;
+    --primary-color: #ffffff;
+    --on-primary-color: #2f3131;
+    --text-variant-color: #c4c7c8;
+    --grid-color: 255, 255, 255;
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glow-color: rgba(255, 255, 255, 0.15);
+    --text-gradient-start: #ffffff;
+    --text-gradient-end: #a3a3a3;
+    --surface-container-lowest: #000000;
+    --surface-container: #171717;
+    --secondary-container-color: #00eefc;
+    --error-color: #ffb4ab;
+    --glow-shadow-secondary: rgba(0, 238, 252, 0.8);
+  }
+}
+
+@theme {
+  --color-outline: #8e9192;
+  --color-on-tertiary: #263143;
+  --color-on-error-container: #ffdad6;
+  --color-tertiary-fixed-dim: #bcc7de;
+  --color-on-surface-variant: var(--text-variant-color);
+  --color-on-secondary-fixed-variant: #004f54;
+  --color-outline-variant: #444748;
+  --color-on-secondary: #00363a;
+  --color-secondary-fixed: #7df4ff;
+  --color-surface: var(--surface-color);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-bright: #262626;
+  --color-tertiary-container: #d8e3fb;
+  --color-surface-tint: #c6c6c7;
+  --color-primary-container: #e2e2e2;
+  --color-secondary-container: var(--secondary-container-color);
+  --color-surface-container-highest: #262626;
+  --color-background: var(--bg-color);
+  --color-error: var(--error-color);
+  --color-surface-container-high: #171717;
+  --color-on-tertiary-fixed: #111c2d;
+  --color-inverse-on-surface: #2a3043;
+  --color-on-secondary-container: #00686f;
+  --color-tertiary: #ffffff;
+  --color-on-primary-container: #636565;
+  --color-on-primary: var(--on-primary-color);
+  --color-primary-fixed: #e2e2e2;
+  --color-error-container: #93000a;
+  --color-primary-fixed-dim: #c6c6c7;
+  --color-on-error: #690005;
+  --color-inverse-primary: #5d5f5f;
+  --color-secondary-fixed-dim: #00dbe9;
+  --color-on-primary-fixed: #1a1c1c;
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-low: #0a0a0a;
+  --color-secondary: #d3fbff;
+  --color-inverse-surface: #dce1fb;
+  --color-on-surface: var(--text-color);
+  --color-on-secondary-fixed: #002022;
+  --color-on-background: var(--text-color);
+  --color-on-tertiary-fixed-variant: #3c475a;
+  --color-surface-variant: #262626;
+  --color-tertiary-fixed: #d8e3fb;
+  --color-primary: var(--primary-color);
+  --color-surface-dim: var(--surface-color);
+  --color-on-primary-fixed-variant: #454747;
+  --color-on-tertiary-container: #5a6579;
+
+  --radius-DEFAULT: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  --spacing-margin-desktop: 48px;
+  --spacing-container-max-width: 1440px;
+  --spacing-unit: 4px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+
+  /* Typography — Role-based font families */
+  --font-display: "Cormorant Garamond";         /* Hero headlines, display text */
+  --font-headline-lg: "Cormorant Garamond";     /* Large page headings */
+  --font-headline-lg-mobile: "Cormorant Garamond";
+  --font-headline-md: "Outfit";                 /* Section headings, card titles */
+  --font-body-lg: "DM Sans";                    /* Large body, subtitles */
+  --font-body-md: "DM Sans";                    /* Default body copy */
+  --font-label-sm: "Geist Mono";                /* Labels, tags, status */
+  --font-code-md: "Geist Mono";                 /* Code, IDs, monospace */
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern" 1, "liga" 1;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(var(--grid-color), 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(var(--grid-color), 0.05) 1px, transparent 1px);
+    transition: background-image 0.3s ease;
+  }
+
+  .perspective-container {
+    perspective: 1000px;
+  }
+
+  .tilt-card-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out, background 0.3s ease, border 0.3s ease;
+    transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+    will-change: transform;
+  }
+  
+  .card-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-color), transparent 80%);
+    opacity: 0;
+    transition: opacity 0.3s, background 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glass-card:hover .card-glow {
+    opacity: 1;
+  }
+
+  .card-content {
+    transform: translateZ(30px);
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn-primary-glow {
+    box-shadow: 0 0 15px var(--glow-color);
+    transition: box-shadow 0.3s ease;
+  }
+  .btn-primary-glow:hover {
+    box-shadow: 0 0 25px var(--glow-color);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(180deg, var(--text-gradient-start) 0%, var(--text-gradient-end) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: background 0.3s ease;
+  }
+
+  .middle-card {
+    box-shadow: 0 0 30px var(--glow-color);
+    border-color: var(--glass-border);
+  }
+  .middle-card:hover {
+    box-shadow: 0 0 40px var(--glow-color);
+  }
+
+  /* ============================================
+     TYPOGRAPHY SCALE
+     Display  → Cormorant Garamond (elegant serif)
+     Headline → Outfit (clean geometric)
+     Body     → DM Sans (humanist sans)
+     Label    → Geist Mono (sleek monospace)
+  =============================================== */
+
+  .text-display {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(52px, 8vw, 96px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  .text-headline-lg {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  .text-headline-lg-mobile {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+  }
+
+  .text-headline-md {
+    font-family: "Outfit", system-ui, sans-serif;
+    font-size: 22px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+
+  .text-headline-sm {
+    font-family: "Outfit", system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+    font-weight: 600;
+  }
+
+  .text-body-lg {
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  .text-body-md {
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .text-body-sm {
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  .text-label-sm {
+    font-family: "Geist Mono", "Courier New", monospace;
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  .text-code-md {
+    font-family: "Geist Mono", "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  /* Font-family utility classes */
+  .font-display      { font-family: "Cormorant Garamond", Georgia, serif; }
+  .font-headline-lg  { font-family: "Cormorant Garamond", Georgia, serif; }
+  .font-headline-lg-mobile { font-family: "Cormorant Garamond", Georgia, serif; }
+  .font-headline-md  { font-family: "Outfit", system-ui, sans-serif; }
+  .font-body-md      { font-family: "DM Sans", system-ui, sans-serif; }
+  .font-body-lg      { font-family: "DM Sans", system-ui, sans-serif; }
+  .font-label-sm     { font-family: "Geist Mono", "Courier New", monospace; }
+  .font-code-md      { font-family: "Geist Mono", "Courier New", monospace; }
+
+  /* Financial / numeric utility */
+  .font-mono-nums {
+    font-family: "Geist Mono", "Courier New", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Tabular-nums utility for Tailwind v4 */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}

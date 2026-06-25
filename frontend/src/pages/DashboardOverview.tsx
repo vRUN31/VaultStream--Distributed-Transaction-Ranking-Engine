@@ -17,7 +17,7 @@ import {
   Calendar,
 } from 'lucide-react';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 const PRESETS = [500, 1000, 2500, 5000];
 
 function getAccountTier(bal: number): { label: string; color: string } {

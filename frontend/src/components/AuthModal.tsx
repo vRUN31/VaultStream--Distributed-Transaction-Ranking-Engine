@@ -8,6 +8,8 @@ import { useToast } from '../context/ToastContext';
 
 export type AuthMode = 'login' | 'signup' | 'forgot-password' | 'update-password';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -35,7 +37,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login' }: AuthModalP
     const timer = setTimeout(async () => {
       setIsCheckingUsername(true);
       try {
-        const res = await axios.get(`http://localhost:8000/auth/check-username?username=${username}`);
+        const res = await axios.get(`${API_URL}/auth/check-username?username=${username}`);
         setIsUsernameAvailable(res.data.available);
       } catch (err) {
         setIsUsernameAvailable(null);
@@ -65,7 +67,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login' }: AuthModalP
     try {
       if (mode === 'login') {
         try {
-          const res = await axios.post('http://localhost:8000/auth/login', { email, password });
+          const res = await axios.post(`${API_URL}/auth/login`, { email, password });
           const { access_token, refresh_token } = res.data;
           
           const { error } = await supabase.auth.setSession({
@@ -94,7 +96,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login' }: AuthModalP
         }
         
         try {
-          const res = await axios.post('http://localhost:8000/auth/register', { email, password, username });
+          const res = await axios.post(`${API_URL}/auth/register`, { email, password, username });
           
           if (res.data.access_token) {
              const { error } = await supabase.auth.setSession({

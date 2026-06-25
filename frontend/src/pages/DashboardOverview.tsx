@@ -186,7 +186,7 @@ export function DashboardOverview() {
       } else if (error.response?.status === 409) {
         showToast('Transaction is already processing.', 'error');
       } else if (error.response?.status === 429) {
-        showToast('Rate limit exceeded. Please wait a moment before trying again.', 'warning');
+        showToast('Rate limit exceeded. Please wait a moment before trying again.', 'error');
       } else {
         showToast('Failed to execute transaction. Please try again.', 'error');
       }

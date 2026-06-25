@@ -58,7 +58,7 @@ export function ProfilePage() {
 
   const handleDeleteAccount = async () => {
     if (confirmText !== 'DELETE') {
-      showToast('Please type DELETE to confirm', 'warning');
+      showToast('Please type DELETE to confirm', 'error');
       return;
     }
 

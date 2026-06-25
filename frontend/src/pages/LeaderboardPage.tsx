@@ -290,7 +290,7 @@ export function LeaderboardPage() {
     }
     setIsError(false);
     try {
-      const response = await axios.get<LeaderboardData>(`${API_URL}/ranking`);
+      const response = await axios.get<any>(`${API_URL}/ranking`);
       const rawMetrics = response.data.metrics;
       const rawAccounts = response.data.top_accounts;
 
@@ -370,7 +370,7 @@ export function LeaderboardPage() {
             {/* ── Podium ── */}
             {podium.length >= 1 && (
               <div className="flex items-end justify-center gap-4 mb-8">
-                {podiumOrder.map((entry, i) => {
+                {podiumOrder.map((entry) => {
                   const isCenter = entry.rank === 1; // Rank 1 is always the center, elevated card
                   return (
                     <PodiumCard

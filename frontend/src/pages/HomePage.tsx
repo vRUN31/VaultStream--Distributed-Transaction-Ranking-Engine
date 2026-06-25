@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { FeatureCard } from '../components/FeatureCard';
 import { AuthModal } from '../components/AuthModal';
 import type { AuthMode } from '../components/AuthModal';
@@ -18,7 +19,7 @@ export function HomePage({ theme, toggleTheme }: HomePageProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -26,13 +27,13 @@ export function HomePage({ theme, toggleTheme }: HomePageProps) {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
   };
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'PASSWORD_RECOVERY') {
         setAuthMode('update-password');
         setIsAuthModalOpen(true);

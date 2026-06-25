@@ -21,7 +21,15 @@ interface DashboardLayoutProps {
   toggleTheme: () => void;
 }
 
-const NAV_ITEMS = [
+interface NavItem {
+  name: string;
+  path: string;
+  icon: any;
+  exact?: boolean;
+  disabled?: boolean;
+}
+
+const NAV_ITEMS: NavItem[] = [
   { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, exact: true },
   { name: 'Transaction insights', path: '/dashboard/history', icon: History },
   { name: 'Leaderboard', path: '/dashboard/leaderboard', icon: Trophy },

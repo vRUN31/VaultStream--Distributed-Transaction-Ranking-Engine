@@ -121,10 +121,6 @@ export function LedgerHistory() {
     fetchTransactions();
   }, [fetchTransactions]);
 
-  const filtered = transactions.filter(
-    (tx) => filter === 'ALL' || tx.type === filter
-  );
-
   // Compute running balance per row
   // Transactions are newest-first from backend; we reverse to compute running balances
   const withBalance: (Transaction & { runningBalance: number })[] = [];
